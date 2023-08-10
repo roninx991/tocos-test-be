@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "@types/bunyan": "^1.8.8",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.8",
+    "gts": "^5.0.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "~5.1.6"
+  },
+  "scripts": {
+    "dev": "npx ts-node-dev --respawn --pretty --transpile-only src/index.ts | bunyan",
+    "start": "mkdir -p ./logs/ && node ./dist/index.js | bunyan",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "build": "npx tsc -p .",
+    "fix": "gts fix"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^11.4.1",
+    "bunyan": "^1.8.15",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.2"
+  }
+}
