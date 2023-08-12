@@ -9,7 +9,7 @@ export const updateBalance = (userId?: string, amount?: BigInt) => {
     return UserModel.findByIdAndUpdate(userId, { balance: amount });
 }
 
-export const findUserByIdOrUsername = (idOrUsername: string): Promise<User> => {
+export const findUserByIdOrUsername = (idOrUsername: string): Promise<User> | undefined => {
     let user = UserModel.findOne({
         $or: [
             { _id: idOrUsername },

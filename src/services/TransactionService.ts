@@ -6,25 +6,29 @@ import logger from "../configurations/LoggerConfig";
 
 export const sendTransaction = async (body: any) => {
     try {
-        let transaction: Transaction = {
-            _id: randomUUID().toString(),
-            from: body.from,
-            to: body.to,
-            amount: body.amount
-        }
-    
-        let fromUser = await findUserByIdOrUsername(transaction.from);
-        let toUser = await findUserByIdOrUsername(transaction.to);
+
+        if (body.from === body.to)
+            throw Error("'from' acount and 'to' account cannot be the same.");
+
+        let fromUser = await findUserByIdOrUsername(body.from);
+        let toUser = await findUserByIdOrUsername(body.to);
     
         if (fromUser == undefined || fromUser == null) 
             throw Error("'from' account does not exist.");
         if (toUser == undefined || toUser == null) 
             throw Error("'to' account does not exist.");
-        if (BigInt(fromUser.balance).valueOf() < BigInt(transaction.amount).valueOf()) 
+        if (BigInt(fromUser.balance).valueOf() < BigInt(body.amount).valueOf()) 
             throw Error("Balance of 'from' account too low.");
-        if (BigInt(transaction.amount).valueOf() <= 0)
+        if (BigInt(body.amount).valueOf() <= 0)
             throw Error("Invalid transaction amount");
-    
+
+        let transaction: Transaction = {
+            _id: randomUUID().toString(),
+            from: fromUser._id,
+            to: toUser._id,
+            amount: body.amount
+        }
+        
         await updateBalance(fromUser._id, BigInt(fromUser.balance).valueOf() - BigInt(transaction.amount).valueOf())
         await updateBalance(toUser._id, BigInt(toUser.balance).valueOf() + BigInt(transaction.amount).valueOf())
     
