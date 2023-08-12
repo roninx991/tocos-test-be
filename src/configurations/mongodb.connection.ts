@@ -1,11 +1,12 @@
 import * as mongoose from 'mongoose';
-import logger from './LoggerConfig';
+import logger from './logger.configuration';
+import { MONGODB_URI } from '../utils/constants';
 
-let mongoClient: mongoose.Mongoose;
+let mongoClient: mongoose.Mongoose | null;
 
-const connect = async (mongoUri: string): Promise<mongoose.Mongoose> => {
+const connect = async (mongoUri: string | undefined = MONGODB_URI): Promise<mongoose.Mongoose | null> => {
     try {
-        if (mongoClient == null || mongoClient == undefined) {
+        if ((mongoClient == null || mongoClient == undefined) && mongoUri !== undefined) {
             logger.info("Connecting to Mongo Cluster...");
             mongoClient = await mongoose.connect(mongoUri)
             logger.info("Connected to Mongo Cluster successfully");
@@ -16,5 +17,7 @@ const connect = async (mongoUri: string): Promise<mongoose.Mongoose> => {
         process.exit();
     }
 }
+
+export const reset_db_client = () => { mongoClient = null }
 
 export default connect;

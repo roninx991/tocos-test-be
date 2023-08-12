@@ -1,8 +1,8 @@
 import { randomUUID } from "crypto";
-import { Transaction } from "../models/TransactionModel";
-import { saveTransaction } from "../repositories/TransactionRepository";
-import { findUserByIdOrUsername, updateBalance } from "../repositories/UserRepository";
-import logger from "../configurations/LoggerConfig";
+import { Transaction } from "../models/transaction.model";
+import { saveTransaction } from "../repositories/transaction.repository";
+import { findUserByIdOrUsername, updateBalance } from "../repositories/user.repository";
+import logger from "../configurations/logger.configuration";
 
 export const sendTransaction = async (body: any) => {
     try {
@@ -20,7 +20,7 @@ export const sendTransaction = async (body: any) => {
         if (BigInt(fromUser.balance).valueOf() < BigInt(body.amount).valueOf()) 
             throw Error("Balance of 'from' account too low.");
         if (BigInt(body.amount).valueOf() <= 0)
-            throw Error("Invalid transaction amount");
+            throw Error("Invalid transaction amount.");
 
         let transaction: Transaction = {
             _id: randomUUID().toString(),

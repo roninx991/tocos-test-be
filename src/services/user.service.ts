@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { User } from "../models/UserModel";
-import { findUserByIdOrUsername, saveUser } from "../repositories/UserRepository";
+import { User } from "../models/user.model";
+import { findUserByIdOrUsername, saveUser } from "../repositories/user.repository";
 
 export const createUser = async (username: string) => {
     if (username == "" || username == null || username == undefined) {

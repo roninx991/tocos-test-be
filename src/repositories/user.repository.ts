@@ -1,7 +1,6 @@
-import TransactionModel from "../models/TransactionModel";
-import UserModel, { User } from "../models/UserModel"
+import UserModel, { User } from "../models/user.model"
 
-export const saveUser = (user: User): Promise<User> => {
+export const saveUser = async (user: User): Promise<User> => {
     return UserModel.create<User>(user);
 }
 
@@ -9,7 +8,7 @@ export const updateBalance = (userId?: string, amount?: BigInt) => {
     return UserModel.findByIdAndUpdate(userId, { balance: amount });
 }
 
-export const findUserByIdOrUsername = (idOrUsername: string): Promise<User> | undefined => {
+export const findUserByIdOrUsername = (idOrUsername: string): Promise<User> | null => {
     let user = UserModel.findOne({
         $or: [
             { _id: idOrUsername },
@@ -21,8 +20,4 @@ export const findUserByIdOrUsername = (idOrUsername: string): Promise<User> | un
 
 export const findAllUsers = (): Promise<Array<User>> => {
     return UserModel.find({});
-}
-
-export const findAllTransactions = (): Promise<Array<User>> => {
-    return TransactionModel.find({});
 }

@@ -1,7 +1,7 @@
-import { createUser } from '../src/services/UserService'; // Import the createUser function
-import * as userRepository from '../src/repositories/UserRepository';
+import * as userRepository from '../src/repositories/user.repository';
+import { createUser } from '../src/services/user.service';
 
-jest.mock('../src/repositories/UserRepository')
+jest.mock('../src/repositories/user.repository')
 
 let findByIdOrUsernameMock = jest.spyOn(userRepository, 'findUserByIdOrUsername');
 let saveUserMock = jest.spyOn(userRepository, 'saveUser');
@@ -22,7 +22,7 @@ describe('createUser', () => {
 
   it('creates a new user with valid username', async () => {
 
-    findByIdOrUsernameMock.mockImplementationOnce((username: string) => undefined);
+    findByIdOrUsernameMock.mockImplementationOnce((username: string) => null);
     saveUserMock.mockResolvedValueOnce({_id: 'newUserId', username: 'newUsername', balance: '100'});
 
     const result = await createUser('newUsername');

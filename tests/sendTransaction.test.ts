@@ -1,10 +1,10 @@
-import { sendTransaction } from '../src/services/TransactionService'; // Import the createUser function
-import * as userRepository from '../src/repositories/UserRepository';
-import * as transactionRepository from '../src/repositories/TransactionRepository';
+import { sendTransaction } from '../src/services/transaction.service'; // Import the createUser function
+import * as userRepository from '../src/repositories/user.repository';
+import * as transactionRepository from '../src/repositories/transaction.repository';
 import { randomUUID } from 'crypto';
 
-jest.mock('../src/repositories/UserRepository');
-jest.mock('../src/repositories/TransactionRepository');
+jest.mock('../src/repositories/user.repository');
+jest.mock('../src/repositories/transaction.repository');
 
 let findByIdOrUsernameMock = jest.spyOn(userRepository, 'findUserByIdOrUsername');
 let saveTransactionMock = jest.spyOn(transactionRepository, 'saveTransaction');
@@ -18,7 +18,7 @@ describe('sendTransaction', () => {
 
     it("throws an error if 'from' account does not exist", async () => {
         
-        findByIdOrUsernameMock.mockImplementationOnce((username: string) => undefined);
+        findByIdOrUsernameMock.mockImplementationOnce((username: string) => null);
         
         await expect(sendTransaction({ from: 'fromUser', to: 'toUser', amount: 1000})).rejects.toThrowError("'from' account does not exist.");
     });
@@ -26,7 +26,7 @@ describe('sendTransaction', () => {
     it("throws an error if 'to' account does not exist.", async () => {
 
         findByIdOrUsernameMock.mockResolvedValueOnce({ _id: 'fromUserId', username: 'fromUsername', balance: '1000'});
-        findByIdOrUsernameMock.mockImplementationOnce((username: string) => undefined);
+        findByIdOrUsernameMock.mockImplementationOnce((username: string) => null);
 
         await expect(sendTransaction({ from: 'fromUsername', to: 'toUser', amount: 1000})).rejects.toThrowError("'to' account does not exist.");
     });
@@ -36,7 +36,7 @@ describe('sendTransaction', () => {
         findByIdOrUsernameMock.mockResolvedValueOnce({ _id: 'fromUserId', username: 'fromUsername', balance: '1000'});
         findByIdOrUsernameMock.mockResolvedValueOnce({ _id: 'toUserId', username: 'toUsername', balance: '1000'});
 
-        await expect(sendTransaction({ from: 'fromUsername', to: 'toUsername', amount: 10000})).rejects.toThrowError("Balance of 'from' account too low");
+        await expect(sendTransaction({ from: 'fromUsername', to: 'toUsername', amount: 10000})).rejects.toThrowError("Balance of 'from' account too low.");
     });
 
     it("throws an error if 'amount' is invalid", async () => {
@@ -44,7 +44,7 @@ describe('sendTransaction', () => {
         findByIdOrUsernameMock.mockResolvedValueOnce({ _id: 'fromUserId', username: 'fromUsername', balance: '1000'});
         findByIdOrUsernameMock.mockResolvedValueOnce({ _id: 'toUserId', username: 'toUsername', balance: '1000'});
 
-        await expect(sendTransaction({ from: 'fromUsername', to: 'toUsername', amount: -100})).rejects.toThrowError("Invalid transaction amount");
+        await expect(sendTransaction({ from: 'fromUsername', to: 'toUsername', amount: -100})).rejects.toThrowError("Invalid transaction amount.");
     });
 
 
