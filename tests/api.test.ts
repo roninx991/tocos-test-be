@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-describe('userRepository', () => {
+describe('/api/', () => {
   let client: mongoose.Mongoose | null;
   let mongodb_server: MongoMemoryServer;
   const old_env = process.env;

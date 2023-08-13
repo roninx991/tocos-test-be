@@ -22,7 +22,7 @@
     "clean": "gts clean",
     "build": "npx tsc -p .",
     "fix": "gts fix",
-    "test": "jest --verbose"
+    "test": "jest --silent --verbose"
   },
   "dependencies": {
     "@typegoose/typegoose": "^11.4.1",

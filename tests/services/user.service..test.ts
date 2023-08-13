@@ -1,7 +1,7 @@
-import * as userRepository from '../src/repositories/user.repository';
-import {createUser} from '../src/services/user.service';
+import * as userRepository from '../../src/repositories/user.repository';
+import {createUser} from '../../src/services/user.service';
 
-jest.mock('../src/repositories/user.repository');
+jest.mock('../../src/repositories/user.repository');
 
 const findByIdOrUsernameMock = jest.spyOn(
   userRepository,
@@ -9,7 +9,7 @@ const findByIdOrUsernameMock = jest.spyOn(
 );
 const saveUserMock = jest.spyOn(userRepository, 'saveUser');
 
-describe('createUser', () => {
+describe('user.service', () => {
   it('throws an error if username already exists', async () => {
     findByIdOrUsernameMock.mockResolvedValueOnce({
       _id: 'newUserId',

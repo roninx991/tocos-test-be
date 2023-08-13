@@ -11,7 +11,7 @@ export const createUser = async (username: string) => {
   }
 
   const existingUser = await findUserByIdOrUsername(username);
-  if (existingUser !== undefined || existingUser !== null) {
+  if (existingUser !== undefined && existingUser !== null) {
     throw Error('Username already exists!');
   }
 

@@ -7,11 +7,7 @@ import {
 } from '../repositories/user.repository';
 import logger from '../configurations/logger.configuration';
 
-export const sendTransaction = async (body: {
-  from: string;
-  to: string;
-  amount: bigint;
-}) => {
+export const sendTransaction = async (body: any) => {
   try {
     if (body.from === body.to)
       throw Error("'from' acount and 'to' account cannot be the same.");

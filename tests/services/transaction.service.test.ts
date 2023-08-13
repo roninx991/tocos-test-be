@@ -1,10 +1,10 @@
-import {sendTransaction} from '../src/services/transaction.service'; // Import the createUser function
-import * as userRepository from '../src/repositories/user.repository';
-import * as transactionRepository from '../src/repositories/transaction.repository';
+import {sendTransaction} from '../../src/services/transaction.service'; // Import the createUser function
+import * as userRepository from '../../src/repositories/user.repository';
+import * as transactionRepository from '../../src/repositories/transaction.repository';
 import {randomUUID} from 'crypto';
 
-jest.mock('../src/repositories/user.repository');
-jest.mock('../src/repositories/transaction.repository');
+jest.mock('../../src/repositories/user.repository');
+jest.mock('../../src/repositories/transaction.repository');
 
 const findByIdOrUsernameMock = jest.spyOn(
   userRepository,
@@ -15,10 +15,10 @@ const saveTransactionMock = jest.spyOn(
   'saveTransaction'
 );
 
-describe('sendTransaction', () => {
+describe('transaction.service', () => {
   it("throws an error if 'from' account and 'to' account are same", async () => {
     await expect(
-      sendTransaction({from: 'fromUser', to: 'fromUser', amount: BigInt(1000)})
+      sendTransaction({from: 'fromUser', to: 'fromUser', amount: 1000})
     ).rejects.toThrowError(
       "'from' acount and 'to' account cannot be the same."
     );
@@ -28,7 +28,7 @@ describe('sendTransaction', () => {
     findByIdOrUsernameMock.mockImplementationOnce(() => null);
 
     await expect(
-      sendTransaction({from: 'fromUser', to: 'toUser', amount: BigInt(1000)})
+      sendTransaction({from: 'fromUser', to: 'toUser', amount: 1000})
     ).rejects.toThrowError("'from' account does not exist.");
   });
 
@@ -132,7 +132,7 @@ describe('sendTransaction', () => {
       _id: expect.any(String),
       from: 'fromUserId',
       to: 'toUserId',
-      amount: BigInt(1000),
+      amount: '1000',
     });
   });
 });

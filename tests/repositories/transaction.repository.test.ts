@@ -1,14 +1,14 @@
 import {mongoose} from '@typegoose/typegoose';
 import connect, {
   reset_db_client,
-} from '../src/configurations/mongodb.connection';
+} from '../../src/configurations/mongodb.connection';
 import {MongoMemoryServer} from 'mongodb-memory-server';
 import {
   findAllTransactions,
   saveTransaction,
-} from '../src/repositories/transaction.repository';
+} from '../../src/repositories/transaction.repository';
 
-describe('userRepository', () => {
+describe('transaction.repository', () => {
   let client: mongoose.Mongoose | null;
   let mongodb_server: MongoMemoryServer;
 
