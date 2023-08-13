@@ -15,7 +15,7 @@
          <ul>
            <li><a href="#built-with">Built With</a></li>
            <li><a href="#application-design">Application Design</a></li>
-           <li><a href="#tests"></a></li>
+           <li><a href="#tests">Tests</a></li>
          </ul>
        </li>
        <li>
@@ -23,8 +23,8 @@
          <ul>
            <li><a href="#prerequisites">Prerequisites</a></li>
            <li><a href="#local-setup">Local Setup</a></li>
-           <li><a href="#running-tests">Local Setup</a></li>
-           <li><a href="#running-dev-server">Local Setup</a></li>
+           <li><a href="#running-tests">Running Tests</a></li>
+           <li><a href="#running-dev-server">Running Development Server</a></li>
          </ul>
        </li>
      </ol>
