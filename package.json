@@ -17,7 +17,7 @@
   },
   "scripts": {
     "dev": "npx ts-node-dev --respawn --pretty --transpile-only src/index.ts | bunyan",
-    "start": "mkdir -p ./logs/ && node ./dist/index.js | bunyan",
+    "start": "mkdir -p ./logs/ && node ./dist/src/index.js | bunyan",
     "lint": "gts lint",
     "clean": "gts clean",
     "build": "npx tsc -p .",
