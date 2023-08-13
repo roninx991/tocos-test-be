@@ -21,6 +21,12 @@ export const getAllTransactionsController = async (
   _: Request,
   res: Response
 ) => {
-  const transactions = await findAllTransactions();
-  res.json(transactions);
+  try {
+    const transactions = await findAllTransactions();
+    res.json(transactions);
+  } catch (err) {
+    logger.error(err?.toString());
+    res.statusCode = 500;
+    res.send('Something went wrong!');
+  }
 };

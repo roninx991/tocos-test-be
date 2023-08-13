@@ -21,18 +21,30 @@ export const getUserByIdOrUsernameController = async (
   req: Request,
   res: Response
 ) => {
-  const user = await findUserByIdOrUsername(req.params.id);
-  if (user === undefined || user === null) {
-    res.statusCode = 404;
-    res.json({
-      message: `User with username or id ${req.params.id} does not exist`,
-    });
-  } else {
-    res.json(user);
+  try {
+    const user = await findUserByIdOrUsername(req.params.id);
+    if (user === undefined || user === null) {
+      res.statusCode = 404;
+      res.json({
+        message: `User with username or id ${req.params.id} does not exist`,
+      });
+    } else {
+      res.json(user);
+    }
+  } catch (err) {
+    logger.error(err?.toString());
+    res.statusCode = 500;
+    res.send('Something went wrong!');
   }
 };
 
 export const getAllUsersController = async (_: Request, res: Response) => {
-  const users = await findAllUsers();
-  res.json(users);
+  try {
+    const users = await findAllUsers();
+    res.json(users);
+  } catch (err) {
+    logger.error(err?.toString());
+    res.statusCode = 500;
+    res.send('Something went wrong!');
+  }
 };
