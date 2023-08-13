@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Toco Backend Task</h3>
+  <h3 align="center">Toco Hiring Task Backend</h3>
 </div>
 <!-- TABLE OF CONTENTS -->
 <p>
