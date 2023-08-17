@@ -37,6 +37,8 @@
 ## About The Project
 
 This project serves as the backend for Toco Hiring Task. <br/>
+Please set up the frontend of this application by following the steps given [here](https://github.com/roninx991/tocos-test-fe/tree/master#readme).<br/>
+Please set up the backend before setting up the frontend of the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
