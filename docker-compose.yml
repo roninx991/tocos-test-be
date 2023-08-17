@@ -2,14 +2,17 @@ version: '3'
 
 services:
   mongo:
-    image: mongo:4.2
+    image: mongo
     container_name: mongo
     volumes:
-      - $HOME/mongodb/data/db:/data/db
+      - $HOME/mongodb/data/db2:/data/db
     networks:
       - tocos-network
     ports:
       - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
   tocos-backend:
     build: .
@@ -19,7 +22,7 @@ services:
     environment:
       PORT: 3001
       LOG_LEVEL: info
-      MONGODB_URI: mongodb://mongo:27017/tocos
+      MONGODB_URI: mongodb://root:example@mongo:27017/tocos
     networks:
       - tocos-network
     ports:
